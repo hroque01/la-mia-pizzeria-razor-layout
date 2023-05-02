@@ -1,8 +1,130 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿﻿@{
+
+    string name = "Mario";
+    string surname = "Rossi";
+
+    int SumNums(int n)
+    {
+        int sum = 0;
+        for (int i = 1; i <= n; i++)
+        {
+             sum += i; 
+        }
+        return sum;
+    }
+
+    int SumChar(char c, string str)
+    {
+        char[] characters = str.ToCharArray();
+        int sum = 0;
+        foreach (var ch in characters)
+        {
+            if (ch == c) sum++;
+        }
+        return sum;
+    }
+
+    List<int> RndList()
+    {
+        var rnd = new Random();
+        List<int> numList = new List<int>();
+        for (int i = 0; i < 20; i++)
+        {
+            numList.Add(rnd.Next(1, 91));
+        }
+        return numList;
+    }
+
+    List<int> numList = RndList();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+
+    <div class="card">
+        @*name surname*@
+        <p>
+            1. Dichiarare una variabile valorizzandola con il nostro nome.
+            Dichiarare un'altra variabile valorizzandola con il nostro cognome.
+            Stampare il nostro nome e cognome all'interno di un tag h2.
+        </p>
+        <h2>
+            @name @surname
+        </h2>
+    </div>
+   
+
+    <div class="card">
+        @*sum nums 1 to n*@
+        <p>
+            2. Creare una funzione che stampa la somma dei numeri che vanno da 1 a n (con n passato come parametro - n incluso)
+            Stampare dentro uno span il risultato.
+        </p>
+        <span>
+            @SumNums(10)
+        </span>
+    </div>
+
+   
+
+    @*count how many 'a' string contains*@
+    <div class="card">
+        <p>
+            3. Contare quante volte la lettera a è presente nalla frase "nel mezzo del cammin di nostra vita" e stampare questo valore in pagina
+        </p>
+        <div>
+            "nel mezzo del cammin di nostra vita" contiene @SumChar('a', "nel mezzo del cammin di nostra vita") lettere 'a'.
+        </div>
+
+    </div>
+   
+    @*rnd int list, show only if is >= 20 and <=70*@
+    <div class="card">
+        <p>
+            4. Creare una List<int> di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70
+        </p>
+        <div>
+            @{
+                for (int i = 0; i < numList.Count(); i++)
+                {
+                    if (numList.ElementAt(i) >= 20 && numList.ElementAt(i) <= 70)
+                    {
+                        if (i != numList.Count() - 1)
+                        {
+                            <text>@numList.ElementAt(i), </text>
+                        }
+                        else
+                        {
+                            <text>@numList.ElementAt(i).</text>
+                        }
+
+                    }
+                }
+            }
+        </div>
+    </div>
+    
+
+    @*print time*@
+    <div class="card">
+        <p>
+            5 & 6.
+            Stampare in pagina la data e l'ora attuale (usando la classe DateTime) con il formato anno-mese-giorno ore:minuti:secondi
+            Partendo dalla data di oggi (usando la classe DateTime) stampare in pagina
+            a. la data di 7 giorni fa
+            b. che giorno della settimana è oggi (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)
+            c. che giorno della settimana sarà nello stesso giorno e mese di oggi ma tra un anno (il risultato dovrà essere il nome del giorno (Lunedì, Martedì, ...)
+        </p>
+        <div>
+            @DateTime.Now.ToString("HH:MM:ss")
+            @{
+                var date = DateTime.Now;
+                <p>@date.AddDays(-7)</p>
+                <p>@date.ToString("dddd")</p>
+                <p>@date.AddYears(-1).ToString("dddd")</p>
+            }
+
+        </div>
+    </div>
+    
+
 </div>
